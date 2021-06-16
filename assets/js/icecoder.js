@@ -1217,6 +1217,7 @@ var ICEcoder = {
 
         this.scrollInt = setInterval(function(ic) {
             // Aim for this step to go 1/5th towards the target line we want as next scroll "step"
+            ic.scrollingOnLine = ic.scrollingOnLine + ((tgtLineNo - ic.scrollingOnLine) / 5);
             // 1 = instant, 20 = very slow
             ic.scrollingOnLine = ic.scrollingOnLine + ((tgtLineNo - ic.scrollingOnLine) / ICEcoder.goToLineScrollSpeed);
             // Scroll on the Y axis to the pixels in this step + 8 to handle margin - 1/10th of editor visible height
@@ -3770,6 +3771,10 @@ var ICEcoder = {
         let styleNode, thisCSS, strCSS, activeLineBG, activeLineNum;
         const lightThemes = ["base16-light", "chrome-devtools", "duotone-light", "eclipse", "eiffel", "elegant", "mdn-like", "idle", "iplastic", "ir_white", "johnny", "juicy", "neat", "neo", "solarized", "ttcn", "xq-light"];
         const darkThemes = ["3024-night", "all-hallow-eve", "black-pearl-ii", "blackboard", "colorforth", "django", "emacs-strict", "fade-to-grey", "fake", "glitterbomb", "isotope", "ir_black", "liquibyte", "monokai-fannonedition", "oceanic", "night", "spectacular", "sunburst", "the-matrix", "tomorrow-night-blue", "tomorrow-night-bright", "tomorrow-night-eighties", "vibrant-ink", "xq-dark", "zenburn"];
+
+        // Set iceRoot and update in settings display
+        iceRoot = settings.iceRoot;
+        this.content.contentWindow.document.getElementById('iceRootDisplay').innerText = "" !== iceRoot ? iceRoot : "[Default]";
 
         // Set iceRoot and update in settings display
         iceRoot = settings.iceRoot;
